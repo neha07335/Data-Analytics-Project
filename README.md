@@ -1,71 +1,97 @@
-Loan-Default-Analytics-Dashboard
+# 🏦 Loan Default Analysis — Power BI Dashboard
 
-Dashboard Link : [Insert Your Power BI Service Link Here]
+An interactive Power BI dashboard that analyzes loan default patterns across borrower demographics, financial profiles, and risk metrics. Built using a structured loan dataset to surface actionable insights for credit risk assessment.
 
-Problem Statement
-This dashboard helps a financial lending institution understand its risk profile and borrower characteristics. By analyzing credit risk factors, the institution can identify which demographics and loan attributes contribute most heavily to defaults.
-Through key metrics like average credit scores, income levels, and interest rates across different employment types and educational backgrounds, the institution can isolate areas of high financial risk. Since the overall default rate is approximately 11.61%, this dashboard provides actionable insights to refine credit risk models, adjust interest rate policies, and implement more stringent underwriting criteria for high-risk segments (such as younger borrowers with lower incomes or higher debt-to-income ratios).
+---
 
-Steps Followed
-•	Step 1: Loaded the dataset (Loan_default.csv) into Power BI Desktop.
+## 📊 Dashboard Pages
 
-•	Step 2: Opened Power Query Editor. Under the View tab, selected "Column distribution", "Column quality", and "Column profile" to inspect data cleanliness.
+### 1. Loan Default Overview
+High-level summary of loan performance including total loan amounts, default rates by year, YoY changes in loan volume and defaults, and loan distribution by purpose and education type.
 
-•	Step 3: Adjusted settings to enable "Column profiling based on entire dataset" to ensure a comprehensive evaluation of all 255,347 rows.
+### 2. Applicant Demographic & Financial Profile
+Explores borrower characteristics such as age groups, employment type, marital status, income brackets, and dependents — showing how these factors correlate with loan amounts and defaults.
 
-•	Step 4: Validated that crucial risk metrics (CreditScore, Income, LoanAmount, and Default) contained zero missing or error values. Trailing columns with null values (Unnamed: 19, Unnamed: 20) were removed during cleaning.
+### 3. Financial Risk Metrics
+Deep-dive into credit risk indicators including credit score bins, DTI ratio, interest rates, co-signer presence, mortgage status, and median loan values by credit score segments.
 
-•	Step 5: Set appropriate data types for all fields (e.g., Currency for Income and LoanAmount, Percentage/Decimal for InterestRate and DTIRatio).
+---
 
-•	Step 6: Selected a cohesive color theme in Report View to align with corporate financial reporting standards.
+## 📁 Dataset — Key Fields
 
-•	Step 7: Implemented page-level interactive Slicers/Filters for core dimensions: Education, EmploymentType, MaritalStatus, and LoanPurpose.
+The dataset (`Loan_default`) contains the following columns:
 
-•	Step 8: Created high-impact Card Visuals at the top of the canvas to display primary baseline metrics: Total Borrowers, Average Income, Average Loan Amount, and Overall Default Rate.
+| Field | Description |
+|---|---|
+| `LoanID` | Unique loan identifier |
+| `Age` | Borrower age |
+| `Income` | Annual income |
+| `LoanAmount` | Loan amount disbursed |
+| `CreditScore` | Applicant credit score |
+| `LoanTerm` | Loan term (months) |
+| `InterestRate` | Interest rate on the loan |
+| `DTIRatio` | Debt-to-income ratio |
+| `EmploymentType` | Employment category |
+| `Education` | Education level |
+| `MaritalStatus` | Marital status |
+| `HasMortgage` | Whether applicant has a mortgage |
+| `HasDependents` | Whether applicant has dependents |
+| `HasCoSigner` | Whether loan has a co-signer |
+| `LoanPurpose` | Purpose of the loan |
+| `NumCreditLines` | Number of active credit lines |
+| `MonthsEmployed` | Duration of current employment |
+| `Default` | Target variable — whether the loan defaulted (1/0) |
+| `Loan_Date_DD_MM_YYYY` | Loan origination date |
 
-•	Step 9: Added a clustered column/bar chart comparing the distribution of Default vs. Non-Default accounts, segmented by demographic parameters like Education or EmploymentType.
+---
 
-•	Step 10: Authored a series of robust DAX expressions to handle custom segments and key performance calculations:
-Calculated Column (Age Group Segment):
+## 📈 Key Measures & Insights
 
-Age Group = 
-IF(Loan_default[Age] <= 25, "18-25",
-IF(Loan_default[Age] <= 40, "26-40",
-IF(Loan_default[Age] <= 60, "41-60", 
-"60+")))
+- **Default Rate by Year** — trend analysis of defaults over time
+- **YOY Default Loan Change** — year-over-year change in defaulted loan volume
+- **YOY Loan Amount Change** — growth or decline in total loans issued
+- **YTD Loan Amount** — year-to-date cumulative loan disbursement
+- **Average Loan by Age Group** — loan size segmented by borrower age group
+- **Avg Loan Amount (High Credit)** — average loan for high credit score borrowers
+- **Total Loan (Middle Age Adults)** — loan concentration in mid-age demographic
+- **Total Loan Credit Bins** — distribution of loans across credit score bands
+- **Loan Amount by Purpose** — breakdown by why the loan was taken
+- **Loan by Education Type** — correlation between education and loan amount
+- **Average Income by Employment Type** — income profile across employment categories
+- **Default Rate by Employment Type** — which employment types carry higher default risk
+- **Median by Credit Score Bins** — median loan values segmented by creditworthiness
 
-Key Performance Measures:
-Total Borrowers = COUNT(Loan_default[LoanID])
+---
 
-Default Rate % = (DIVIDE(CALCULATE(COUNT(Loan_default[LoanID]), Loan_default[Default] = 1), [Total Borrowers])) * 100
+## 🛠️ Tools & Technologies
 
-Total Loan Principal = SUM(Loan_default[LoanAmount])
+- **Power BI Desktop** — dashboard development and visualization
+- **Power Query (M)** — data transformation and preparation
+- **DAX** — custom measures and calculated columns
+- **Dataset format** — tabular loan data (CSV/Excel source)
 
-•	Step 11: Inserted structured corporate headers using Text Boxes, along with clear organizational layout separators (rectangles/lines) to improve dashboard scannability.
+---
 
-•	Step 12: Published the complete interactive data model from Power BI Desktop to the target workspace in Power BI Service.
+## 🚀 Getting Started
 
-Snapshot of Dashboard (Power BI Service / Desktop)
-[Insert your uploaded dashboard screenshot here]
+1. Clone or download this repository.
+2. Open `Project_1.pbit` in **Power BI Desktop**.
+3. When prompted, connect to your source dataset (CSV/Excel with the schema above).
+4. Refresh the data — all visuals and measures will populate automatically.
 
-Insights
+> **Note:** The `.pbit` file is a Power BI Template — it contains the report layout and data model but not the raw data. You'll need to provide the dataset when opening it.
 
-[1] Overall Baseline Metrics
-•	Total Portfolio Size: 255,347 borrowers.
-•	Overall Default Rate: 11.61%.
-•	Healthy Accounts (Non-Default): 88.39%.
+---
 
-[2] Default Profile Inferences (Risk Indicators)
-A clear divergence is visible when comparing borrowers who defaulted (Default = 1) against those who maintain healthy status (Default = 0):
-•	Age Disparity: Defaulted borrowers trend significantly younger, with an average age of 36.56 years, compared to 44.41 years for non-defaulters.
-•	Income Limitations: The average annual income for defaulting borrowers is ₹71,844.72, which is markedly lower than non-defaulting borrowers (₹83,899.16).
-•	Exposure Risk: Defaulted accounts hold higher average loan obligations (₹144,515.31) compared to active healthy loans (₹125,353.66).
-•	Premium Penalty: Defaulters carry higher risk pricing, holding an average interest rate of 15.90%, versus 13.18% for low-risk clients.
+## 📌 Use Cases
 
-[3] Portfolio Distributions
-•	Education & Employment Diversification: The portfolio is perfectly distributed evenly across all categories. Each educational group (Bachelor's, High School, Master's, PhD) represents exactly ~25% of the borrower pool. Similarly, employment categories (Full-time, Part-time, Self-employed, Unemployed) split evenly at ~25% each.
-•	Loan Intents: Borrowers are evenly split across five primary categorical purposes: Business, Home, Education, Other, and Auto (each hovering uniformly at ~20% of the active loan count).
+- Credit risk analysis and loan portfolio monitoring
+- Understanding borrower demographics and financial profiles
+- Identifying high-risk segments for proactive risk management
+- Supporting data-driven lending decisions
 
+---
 
+## 📄 License
 
-
+This project is for educational and portfolio purposes.
