@@ -92,6 +92,14 @@ The dataset (`Loan_default`) contains the following columns:
 
 ---
 
+## SQL Analysis
+In addition to the Power BI dashboard, I ran SQL queries directly on the
+same dataset to validate key findings — see `queries.sql`.
+
+Key finding: borrowers with both low credit score (<620) and high DTI (>40%)
+default at 12.76%, vs. 11.61% for the portfolio overall, and this segment
+covers 36% of the entire loan book.
+
 ## 📄 License
 
 This project is for educational and portfolio purposes.
